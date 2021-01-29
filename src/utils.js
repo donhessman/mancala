@@ -1,72 +1,10 @@
-export const defaultBoardState = [
-    {
-        pitType: 'goal',
-        count: 0,
-        row: 1
-    },
-    {
-        pitType: 'cup',
-        count: 4,
-        row: 1
-    },
-    {
-        pitType: 'cup',
-        count: 4,
-        row: 1
-    },
-    {
-        pitType: 'cup',
-        count: 4,
-        row: 1
-    },
-    {
-        pitType: 'cup',
-        count: 4,
-        row: 1
-    },
-    {
-        pitType: 'cup',
-        count: 4,
-        row: 1
-    },
-    {
-        pitType: 'cup',
-        count: 4,
-        row: 1
-    },
-    {
-        pitType: 'goal',
-        count: 0,
-        row: 2
-    },
-    {
-        pitType: 'cup',
-        count: 4,
-        row: 2
-    },
-    {
-        pitType: 'cup',
-        count: 4,
-        row: 2
-    },
-    {
-        pitType: 'cup',
-        count: 4,
-        row: 2
-    },
-    {
-        pitType: 'cup',
-        count: 4,
-        row: 2
-    },
-    {
-        pitType: 'cup',
-        count: 4,
-        row: 2
-    },
-    {
-        pitType: 'cup',
-        count: 4,
-        row: 2
-    }
-]
+export const getNextCupPosition = (player1Turn, position) => {
+    if (position === 12 && player1Turn) return 0;
+    if (position === 13 && !player1Turn) return 0;
+    if (position === 5 && !player1Turn) return 7;
+    return position + 1;
+};
+
+export const shouldPreventClick = (player1Turn, position) => (
+    (player1Turn && position > 5) || (!player1Turn && position < 7)
+)
