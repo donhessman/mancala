@@ -29,7 +29,7 @@ export const PageWrapper = styled.main`
 export const Board = styled.section`
     align-items: center;
     justify-content: space-evenly;
-    background: url('/img/wood-grain.jpg') repeat-x 0 0;
+    background: url('img/wood-grain.jpg') repeat-x 0 0;
     display: flex;
     height: 366px;
     padding: 0 30px;
