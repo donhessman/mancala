@@ -44,12 +44,13 @@ const Main = () => {
                 setTurnInProgress({
                     inPlay: count > 1,
                     count: count - 1,
-                    position: count > 1 ? nextCupPosition : null
+                    position: count > 1 ? nextCupPosition : position
                 })
                 setPositions(nextPositions);
             }, 500);
         }
     },[positions]);
+    console.log('turnInProgress', turnInProgress);
 
     useEffect(() => {
         if(gameInProgress && !turnInProgress?.inPlay) {
