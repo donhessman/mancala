@@ -1,4 +1,5 @@
-import { getNextCupPosition, shouldPreventClick } from './utils';
+import { expect } from '@jest/globals';
+import { getNextCupPosition, shouldPreventClick, shouldAwardExtraTurn } from './utils';
 
 describe('Utilities', () => {
     describe('getNextCupPosition()', () => {
@@ -50,6 +51,39 @@ describe('Utilities', () => {
             const player1Turn = false;
             const position = 10;
             expect(shouldPreventClick(player1Turn, position)).toBeFalsy();
+        });
+    });
+
+    describe('shouldAwardExtraTurn()', () => {
+        test('should return false unless there is only one pebble left to drop', () => {
+            const player1Turn = true;
+            const position = 5;
+            const count = 2;
+            expect(shouldAwardExtraTurn(player1Turn, position, count)).toBeFalsy();
+        });
+        test('should return true when player 1 turn and the next position is player 1 mancala', () => {
+            const player1Turn = true;
+            const position = 5;
+            const count = 1;
+            expect(shouldAwardExtraTurn(player1Turn, position, count)).toBeTruthy();
+        });
+        test('should return false when player 1 turn and the next position is not player 1 mancala', () => {
+            const player1Turn = true;
+            const position = 3;
+            const count = 1;
+            expect(shouldAwardExtraTurn(player1Turn, position, count)).toBeFalsy();
+        });
+        test('should return true when player 2 turn and the next position is player 2 mancala', () => {
+            const player1Turn = false;
+            const position = 12;
+            const count = 1;
+            expect(shouldAwardExtraTurn(player1Turn, position, count)).toBeTruthy();
+        });
+        test('should return false when player 2 turn and the next position is not player 2 mancala', () => {
+            const player1Turn = false;
+            const position = 10;
+            const count = 1;
+            expect(shouldAwardExtraTurn(player1Turn, position, count)).toBeFalsy();
         });
     });
 });

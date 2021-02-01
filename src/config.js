@@ -1,7 +1,8 @@
 export const defaultTurnState = {
     inPlay: false,
     count: 0,
-    position: null
+    position: null,
+    awardExtraTurn: false
 };
 
 export const defaultBoardState = [

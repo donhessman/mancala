@@ -1,7 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { GlobalStyle, Header, Logo, PageWrapper, Board, Goal, Goal2, Cup, Count, Rows, Row1, Row2, Player1Info, Player2Info, PlayerArrow } from './Main.styles';
+import {
+    GlobalStyle,
+    Header,
+    Logo,
+    ScoreBoard,
+    ScoreLabel,
+    ScorePlayer,
+    ScoreNumber,
+    Score,
+    PageWrapper,
+    Board,
+    Goal,
+    Goal2,
+    Cup,
+    Count,
+    Rows,
+    Row1,
+    Row2,
+    Player1Info,
+    Player2Info,
+    PlayerArrow,
+} from './Main.styles';
 import { defaultBoardState, defaultTurnState } from '../config';
-import { getNextCupPosition, shouldPreventClick } from '../utils';
+import { getNextCupPosition, shouldPreventClick, shouldAwardExtraTurn } from '../utils';
 
 const Main = () => {
     const player1 = 'player1';
@@ -40,20 +61,23 @@ const Main = () => {
                 const nextCupPosition = getNextCupPosition(player1Turn, position);
                 const nextPositions = [...positions];
                 nextPositions.find(p => p?.position === nextCupPosition).count++;
+
+                const awardExtraTurn = shouldAwardExtraTurn(player1Turn, position, count);
                 // reduce count in hand and move to next position
                 setTurnInProgress({
-                    inPlay: count > 1,
+                    inPlay: count > 1 && !awardExtraTurn,
                     count: count - 1,
-                    position: count > 1 ? nextCupPosition : position
+                    position: count > 1 ? nextCupPosition : position,
+                    awardExtraTurn
                 })
                 setPositions(nextPositions);
             }, 500);
         }
     },[positions]);
-    console.log('turnInProgress', turnInProgress);
 
     useEffect(() => {
-        if(gameInProgress && !turnInProgress?.inPlay) {
+        const { inPlay, awardExtraTurn } = turnInProgress;
+        if (gameInProgress && !inPlay && !awardExtraTurn) {
             setplayer1Turn(!player1Turn);
         }
     },[turnInProgress?.inPlay]);
@@ -72,6 +96,11 @@ const Main = () => {
             <Header>
                 <PageWrapper>
                     <Logo>MANCALA!</Logo>
+                    <ScoreBoard>
+                        <ScoreLabel>SCORE</ScoreLabel>
+                        <Score isPlayer1><ScorePlayer>Player 1:</ScorePlayer> <ScoreNumber isPlayer1>{row1Goal?.count || 0}</ScoreNumber></Score>
+                        <Score><ScorePlayer>Player 2:</ScorePlayer> <ScoreNumber>{row2Goal?.count || 0}</ScoreNumber></Score>
+                    </ScoreBoard>
                 </PageWrapper>
             </Header>
             <PageWrapper>
