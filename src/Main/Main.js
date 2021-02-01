@@ -22,7 +22,7 @@ import {
     PlayerArrow,
 } from './Main.styles';
 import { defaultBoardState, defaultTurnState } from '../config';
-import { getNextCupPosition, shouldPreventClick } from '../utils';
+import { getNextCupPosition, shouldPreventClick, shouldAwardExtraTurn } from '../utils';
 
 const Main = () => {
     const player1 = 'player1';
@@ -61,11 +61,14 @@ const Main = () => {
                 const nextCupPosition = getNextCupPosition(player1Turn, position);
                 const nextPositions = [...positions];
                 nextPositions.find(p => p?.position === nextCupPosition).count++;
+
+                const awardExtraTurn = shouldAwardExtraTurn(player1Turn, position, count);
                 // reduce count in hand and move to next position
                 setTurnInProgress({
-                    inPlay: count > 1,
+                    inPlay: count > 1 && !awardExtraTurn,
                     count: count - 1,
-                    position: count > 1 ? nextCupPosition : position
+                    position: count > 1 ? nextCupPosition : position,
+                    awardExtraTurn
                 })
                 setPositions(nextPositions);
             }, 500);
@@ -73,7 +76,8 @@ const Main = () => {
     },[positions]);
 
     useEffect(() => {
-        if(gameInProgress && !turnInProgress?.inPlay) {
+        const { inPlay, awardExtraTurn } = turnInProgress;
+        if (gameInProgress && !inPlay && !awardExtraTurn) {
             setplayer1Turn(!player1Turn);
         }
     },[turnInProgress?.inPlay]);
