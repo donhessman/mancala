@@ -1,20 +1,11 @@
 import styled, { createGlobalStyle } from 'styled-components';
+const player1Color = '#2a9d8f';
+const player2Color = '#e76f51';
 
 export const GlobalStyle = createGlobalStyle`
     body {
         margin: 0;
     }
-`;
-
-export const Header = styled.header`
-    background: #f4a261;
-    margin-bottom: 100px;
-    padding: 15px 0;
-`;
-
-export const Logo = styled.h1`
-    color: #fff;
-    margin: 0;
 `;
 
 export const PageWrapper = styled.main`
@@ -24,6 +15,65 @@ export const PageWrapper = styled.main`
     @media (min-width: 1150px) {
         max-width: 1150px;
     }
+`;
+
+export const Header = styled.header`
+    background: #f4a261;
+    margin-bottom: 100px;
+    padding: 15px 0;
+
+    ${PageWrapper} {
+        display: flex;
+        justify-content: space-between;
+    }
+`;
+
+export const Logo = styled.h1`
+    color: #fff;
+    font-size: 48px;
+    margin: 0;
+    max-width: 300px;
+`;
+
+export const ScoreBoard = styled.div`
+    background: #e9c46a;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    width: 450px;
+`;
+
+export const ScoreLabel = styled.div`
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
+`;
+
+export const Score = styled.div`
+    align-items: center;
+    color: #fff;
+    background: ${({ isPlayer1 }) => isPlayer1 ? player1Color : player2Color};
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 8px;
+    width: 130px;
+`;
+
+export const ScorePlayer = styled.span`
+    font-style: italic;
+    font-size: 22px;
+`;
+
+export const ScoreNumber = styled.span`
+    background: #fff;
+    border-radius: 5px;
+    color: ${({ isPlayer1 }) => isPlayer1 ? player1Color : player2Color};
+    line-height: 0.95;
+    padding: 0 3px;
+    font-weight: 500;
+    font-size: 28px;
 `;
 
 export const Board = styled.section`
@@ -38,8 +88,7 @@ export const Board = styled.section`
 
 export const Goal = styled.div`
     align-items: center;
-    box-shadow:3px -1px 30px 
-    rgba(78,37,13,0.9) inset;
+    box-shadow:3px -1px 30px rgba(78,37,13,0.9) inset;
     border-radius: 60px;
     display: flex;
     justify-content: center;
@@ -94,7 +143,7 @@ export const Row2 = styled(Row1)`
 `;
 
 export const Player1Info = styled.div`
-    color: #2a9d8f;
+    color: ${player1Color};
     font-size: 25px;
     padding: 15px 0;
     position: absolute;
@@ -104,7 +153,7 @@ export const Player1Info = styled.div`
 `;
 
 export const Player2Info = styled.div`
-    color: #e76f51;
+    color: ${player2Color};
     font-size: 25px;
     padding: 15px 0;
 `;
