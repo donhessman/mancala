@@ -50,10 +50,14 @@ export const ScoreLabel = styled.div`
     text-align: center;
 `;
 
+interface BooleanProp {
+    isPlayer1?: boolean;
+}
+
 export const Score = styled.div`
     align-items: center;
     color: #fff;
-    background: ${({ isPlayer1 }) => isPlayer1 ? player1Color : player2Color};
+    background: ${({ isPlayer1 }: BooleanProp) => isPlayer1 ? player1Color : player2Color};
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
@@ -69,7 +73,7 @@ export const ScorePlayer = styled.span`
 export const ScoreNumber = styled.span`
     background: #fff;
     border-radius: 5px;
-    color: ${({ isPlayer1 }) => isPlayer1 ? player1Color : player2Color};
+    color: ${({ isPlayer1 }: BooleanProp) => isPlayer1 ? player1Color : player2Color};
     line-height: 0.95;
     padding: 0 3px;
     font-weight: 500;

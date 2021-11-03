@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "lib": ["ES6", "DOM"],
+        "moduleResolution": "Node",
+        "resolveJsonModule": true,
+        "strict": true,
+        "jsx": "react",
+        "target": "ES2016",
+        "baseUrl": "./src",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "allowJs": true,
+        "typeRoots": ["./node_modules/@types"]
+    }
+}

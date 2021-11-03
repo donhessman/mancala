@@ -1,5 +1,5 @@
 {
-    "extends": ["airbnb", "plugin:flowtype/recommended"],
+    "extends": ["airbnb", "airbnb-typescript/base", "plugin:import/typescript", "plugin:@typescript-eslint/recommended", "plugin:@typescript-eslint/recommended-requireing-type-checking"],
     "rules": {
         "no-console": ["warn", { "allow": ["warn", "info", "error", "group", "groupEnd"] }],
         "max-len": 0,
@@ -27,7 +27,10 @@
       "browser": true,
       "node": true
     },
-    "parser": "babel-eslint",
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "./tsconfig.json"
+    },
     "globals": {
         "google": true,
         "module": true,
