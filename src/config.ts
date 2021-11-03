@@ -1,7 +1,7 @@
 export const defaultTurnState = {
     inPlay: false,
     count: 0,
-    position: null,
+    position: 0,
     awardExtraTurn: false
 };
 
